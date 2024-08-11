@@ -1,0 +1,184 @@
+openapi: 3.0.0
+info:
+  title: Intern-test-docs
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8000
+    description: Local server
+paths:
+  /login/:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              example:
+                username: admin
+                password: pastibisa
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                      admin: 
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                          username:
+                            type: string
+                          phone:
+                            type: string
+                          email:
+                            type: string             
+              example:
+                status: success
+                message: pesan success
+                data:
+                  token: "token untuk autentikasi"
+                  admin:
+                    id: "uuid admin"
+                    name: "nama admin"
+                    username: "username admin"
+                    phone: "no telepon admin"
+                    email: "email admin"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                      admin: 
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                          username:
+                            type: string
+                          phone:
+                            type: string
+                          email:
+                            type: string             
+              example:
+                status: error
+                message: pesan error
+                data:
+                  token: null
+                  admin:
+                    id: null
+                    name: null
+                    username: null
+                    phone: null
+                    email: null
+  /division/:
+    get:
+     requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              example:
+                division: "penacarian nama"
+
+     responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: "pesan success"
+                  data:
+                    type: object
+                    properties:
+                      division:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                        example:
+                          - id: "uuid divisi"
+                            name: "nama divisi"
+                          - id: "uuid divisi"
+                            name: "nama divisi"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "error"
+                  message:
+                    type: string
+                    example: "pesan error"
+                  data:
+                    type: object
+                    properties:
+                      division:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                        example:
+                          - id: null
+                            name: null
+                          - id: null
+                            name: null
+                    
+                      
+
+
+
+

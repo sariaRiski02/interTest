@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
+use Database\Seeders\UserSeeder;
+use Database\Seeders\DivitionSeeder;
+use Database\Seeders\EmployeeSeeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        // User::factory(10)->create();
+
+
+        $this->call([
+            UserSeeder::class,
+            DivitionSeeder::class,
+            EmployeeSeeder::class,
+        ]);
+    }
+}
