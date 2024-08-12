@@ -13,5 +13,5 @@ Route::middleware([authTestMiddleware::class])->group(function () {
     Route::post('/employee', [AdminController::class, 'createEmployee']);
     Route::put('/employee/{id}', [AdminController::class, 'updateEmployee']);
     Route::delete('/employee/{id}', [AdminController::class, 'deleteEmployee']);
-    Route::post('/logut', [AdminController::class, 'logout']);
+    Route::post('/logout', [AdminController::class, 'logout']);
 });

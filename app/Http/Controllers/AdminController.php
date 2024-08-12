@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EmployeeRequest;
+use App\Models\User;
 use App\Models\Division;
+use App\Models\Employee;
+use Illuminate\Support\Str;
+
+use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\AdminResource;
-
+use App\Http\Requests\EmployeeRequest;
 use App\Http\Resources\DivisionCollection;
 use App\Http\Resources\EmployeeCollection;
-use App\Models\Employee;
 
 class AdminController extends Controller
 {
@@ -114,11 +117,46 @@ class AdminController extends Controller
             ]);
         }
 
+        $employee->delete();
+
         return response()->json([
             "status" => "success",
             "message" => "Deleted success"
         ]);
     }
 
-    public function logout() {}
+    public function logout(Request $request)
+    {
+        // Menangkap token dari header
+        $token = $request->header('token');
+
+        // Mencari user berdasarkan token
+        $admin = User::where('token', $token)->first();
+
+        // Memeriksa apakah user ditemukan
+        if (!$admin) {
+            return response()->json([
+                "status" => 'error',
+                "message" => 'Unauthorized'
+            ], 401);
+        }
+
+        // Mengupdate token pengguna
+        $update = $admin->update([
+            'token' => Str::random(10),
+        ]);
+
+        // Memeriksa hasil update
+        if (!$update) {
+            return response()->json([
+                "status" => 'error',
+                "message" => 'Logout failed'
+            ], 500);
+        }
+
+        return response()->json([
+            "status" => 'success',
+            "message" => 'Logout successful'
+        ]);
+    }
 }
