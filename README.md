@@ -1,5 +1,7 @@
 ## API Documentation
 
+link API: [https://inter-test-api-60fc66bdf295.herokuapp.com/api//](https://inter-test-api-60fc66bdf295.herokuapp.com/api//)
+
 perlu diketahui bahwa didalam database telah terisi data dummy yang bisa gunakan untuk testing.
 
 username: `admin`
