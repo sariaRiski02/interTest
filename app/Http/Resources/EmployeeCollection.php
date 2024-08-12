@@ -21,7 +21,6 @@ class EmployeeCollection extends ResourceCollection
             'data' =>
             ["employees" => $this->collection->transform(function ($data) {
                 $division = $data->division()->first()->only(['id', 'name']);
-                // dd($division);
                 return [
                     'id' => $data->id,
                     'name' => $data->name,

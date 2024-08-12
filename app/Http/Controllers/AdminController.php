@@ -15,6 +15,7 @@ use App\Http\Requests\EmployeeRequest;
 use App\Http\Requests\registerRequest;
 use App\Http\Resources\DivisionCollection;
 use App\Http\Resources\EmployeeCollection;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
@@ -38,6 +39,7 @@ class AdminController extends Controller
     }
     public function login(LoginRequest $request)
     {
+
         $data = $request->validated();
 
         if (Auth::attempt($data)) {
@@ -85,8 +87,8 @@ class AdminController extends Controller
             'image' => isset($data['image']) ? $data['image'] : null,
             'name' => $data['name'],
             'division_id' => $data['division'],
-            'phone' => $data['phone'],
-            'position' => $data['position'],
+            'phone' => $data['phone'] ?? null,
+            'position' => $data['position'] ?? null,
         ]);
 
         if (!$employee) {
