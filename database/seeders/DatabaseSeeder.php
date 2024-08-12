@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
-use Database\Seeders\DivitionSeeder;
+use Database\Seeders\DivisionSeeder;
 use Database\Seeders\EmployeeSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
-            DivitionSeeder::class,
+            DivisionSeeder::class,
             EmployeeSeeder::class,
         ]);
     }

@@ -18,19 +18,14 @@ class authTestMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $token = $request->header('token');
-        // dd($token);
-        // if (!$token) {
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'message' => 'Unauthorized',
-        //     ], 401);
-        // }
+
         $validated = User::where('token', $token)->first();
 
         if (!$validated) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Unauthorized',
+                'data' => null
             ], 401);
         }
         return $next($request);

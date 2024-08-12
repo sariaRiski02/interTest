@@ -2,14 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Resources\AdminCollection;
-use App\Http\Resources\AdminResource;
-use App\Http\Resources\DataCollection;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class LoginRequest extends FormRequest
+class EmployeeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +24,11 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'required|min:3',
-            'password' => 'required|min:4',
+            'image' => 'string',
+            'name' => 'required|string',
+            'phone' => 'required|string',
+            "division" => 'required|string',
+            "position" => 'required|string'
         ];
     }
 
@@ -38,7 +38,7 @@ class LoginRequest extends FormRequest
 
         throw new HttpResponseException(response()->json([
             'status' => 'error',
-            'message' => $errors
+            'message' => $validator->errors()
         ], 422));
     }
 }

@@ -13,8 +13,9 @@ class RelationTest extends TestCase
     {
         $this->artisan('migrate:fresh --seed');
         $employee = Employee::first();
+
         // dd($employee->toArray());
-        $divition = $employee->divition()->first();
-        $this->assertEquals($divition->id, $employee->id_divition);
+        $division = $employee->division()->first();
+        $this->assertEquals($division->id, $employee->division_id);
     }
 }

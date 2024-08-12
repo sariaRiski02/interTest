@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Divition;
+use App\Models\Division;
 use App\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,7 +24,7 @@ class EmployeeFactory extends Factory
 
         return [
             'name' => $this->faker->name,
-            'id_divition' => Divition::inRandomOrder()->first()->id,
+            'division_id' => Division::inRandomOrder()->first()->id,
             'phone' => $this->faker->phoneNumber,
             'image' => $this->faker->imageUrl(),
             'position' => $this->faker->jobTitle,

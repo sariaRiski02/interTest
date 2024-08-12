@@ -15,7 +15,7 @@ return new class extends Migration
     public function up(): void
     {
 
-        Schema::create('divitions', function (Blueprint $table) {
+        Schema::create('divisions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name')->nullable(false);
             $table->timestamps();
@@ -23,7 +23,9 @@ return new class extends Migration
 
         Schema::create('employees', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('id_divition')->constrained('divitions');
+            $table->foreignUuid('division_id')
+                ->constrained('divisions')
+                ->onDelete('cascade');
             $table->string('image')->nullable(true);
             $table->string('name')->nullable(false);
             $table->string('phone')->nullable(false);
@@ -40,6 +42,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('employees');
-        Schema::dropIfExists('divitions');
+        Schema::dropIfExists('divisions');
     }
 };

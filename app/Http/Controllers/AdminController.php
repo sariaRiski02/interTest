@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\EmployeeRequest;
+use App\Models\Division;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\AdminResource;
-use App\Http\Resources\DataCollection;
-use App\Http\Resources\AdminCollection;
-use App\Models\Divition;
+
+use App\Http\Resources\DivisionCollection;
+use App\Http\Resources\EmployeeCollection;
+use App\Models\Employee;
 
 class AdminController extends Controller
 {
@@ -27,11 +28,97 @@ class AdminController extends Controller
         ], 401);
     }
 
-    public function getDivition($name)
+    public function getDivision($name = null)
     {
-        $data = Divition::where('name', $name)->get();
-        return response()->json([
-            'status' => 'failed'
-        ], 200);
+
+        if (isset($name)) {
+            $data = Division::where('name', 'like', "%$name%")->paginate(5);
+        } else {
+            $data = Division::paginate(5);
+        }
+
+        return new DivisionCollection($data);
     }
+
+    public function getEmployee($param = null)
+    {
+        if (isset($param)) {
+            $data = Employee::where('name', 'like', "%$param%")
+                ->orWhere('division_id', $param)
+                ->orWhereHas('division', function ($query) use ($param) {
+                    $query->where('divisions.name', 'like', "%$param%");
+                })
+                ->paginate(5);
+        } else {
+            $data = Employee::paginate(5);
+        }
+        return new EmployeeCollection($data);
+    }
+
+    public function createEmployee(EmployeeRequest $request)
+    {
+        $data = $request->validated();
+
+        $employee = Employee::create([
+            'image' => isset($data['image']) ? $data['image'] : null,
+            'name' => $data['name'],
+            'division_id' => $data['division'],
+            'phone' => $data['phone'],
+            'position' => $data['position'],
+        ]);
+
+        if (!$employee) {
+            return response()->json([
+                "status" => "error",
+                "message" => "Create Data failed"
+            ]);
+        }
+        return response()->json([
+            "status" => "success",
+            "message" => "Created Success"
+        ]);
+    }
+
+    public function updateEmployee(EmployeeRequest $request, $id)
+    {
+        $validated = $request->validated();
+        $employee = Employee::find($id);
+        if (!$employee) {
+            return response()->json([
+                "status" => "error",
+                "message" => "id not found"
+            ]);
+        }
+        $data = $employee->update($validated);
+
+        if (!$data) {
+            return response()->json([
+                "status" => "error",
+                "message" => "Create Data failed"
+            ]);
+        }
+
+        return response()->json([
+            "status" => "success",
+            "message" => "Updated Success"
+        ]);
+    }
+
+    public function deleteEmployee($id)
+    {
+        $employee = Employee::find($id);
+        if (!$employee) {
+            return response()->json([
+                "status" => "error",
+                "message" => "id not found"
+            ]);
+        }
+
+        return response()->json([
+            "status" => "success",
+            "message" => "Deleted success"
+        ]);
+    }
+
+    public function logout() {}
 }

@@ -7,10 +7,10 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Divition extends Model
+class Division extends Model
 {
     use HasFactory;
-    protected $table = 'divitions';
+    protected $table = 'divisions';
     protected $keyType = 'string';
     protected $primaryKey = 'id';
     public $incrementing = false;
@@ -30,6 +30,6 @@ class Divition extends Model
 
     public function employee()
     {
-        return $this->hasMany(Employee::class, 'id_divition', 'id');
+        return $this->hasMany(Employee::class, 'division_id', 'id');
     }
 }
