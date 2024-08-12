@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Middleware\authTestMiddleware;
 
 Route::post('/login', [AdminController::class, 'login']);
+Route::post('/register', [AdminController::class, 'register']);
 
 Route::middleware([authTestMiddleware::class])->group(function () {
     Route::get('/division/{name?}', [AdminController::class, 'getdivision']);

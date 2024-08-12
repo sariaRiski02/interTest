@@ -12,11 +12,30 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\AdminResource;
 use App\Http\Requests\EmployeeRequest;
+use App\Http\Requests\registerRequest;
 use App\Http\Resources\DivisionCollection;
 use App\Http\Resources\EmployeeCollection;
 
 class AdminController extends Controller
 {
+    public function register(registerRequest $request)
+    {
+        $data = $request->validated();
+        $data['password'] = bcrypt($data['password']);
+        $data['token'] = Str::random(10);
+        $user = User::create($data);
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Register failed',
+            ], 500);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Register success',
+        ]);
+    }
     public function login(LoginRequest $request)
     {
         $data = $request->validated();
