@@ -9,7 +9,7 @@ password: `pastibisa`
 
 ### Register Admin
 
-```http
+```https
   GET /api/register
 ```
 
@@ -42,7 +42,7 @@ Endpoint ini akan mengembalikan objek JSON jika Anda sudah login atau jika Anda 
 }
 ```
 
-```http
+```https
   POST /api/login
 ```
 
@@ -80,13 +80,13 @@ dengan kata lain setiap request dari enpoint-enpoint dibawah tulisan ini harus m
 
 ### Get Division
 
-```http
+```https
   GET /api/division/{name}
 ```
 
 atau juga bisa difilter berdasarkan nama divisi
 
-```http
+```https
   GET /api/division/{name}
 ```
 
@@ -113,13 +113,13 @@ response:
 
 ### Get employee
 
-```http
+```https
   GET /api/employee
 ```
 
 atau anda juga bisa memfilter data employee berdasarkan nama atau divisi serta id employee
 
-```http
+```https
   GET /api/employee?param=string
 ```
 
@@ -144,7 +144,7 @@ atau anda juga bisa memfilter data employee berdasarkan nama atau divisi serta i
 
 <hr>
 
-```http
+```https
 POST /api/employee
 ```
 
@@ -174,7 +174,7 @@ response:
 
 ### Update employee by id
 
-```http
+```https
   PUT /api/employee/:id
 ```
 
@@ -204,7 +204,7 @@ response:
 
 ### Delete employee by id
 
-```http
+```https
   DELETE /api/employee/:id
 ```
 
@@ -219,7 +219,7 @@ response:
 
 <hr>
 
-```http
+```https
 POST /api/logout
 ```
 
